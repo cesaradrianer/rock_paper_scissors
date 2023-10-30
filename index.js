@@ -1,16 +1,20 @@
+const rockButton = document.getElementById('rock-btn')
+const paperButton = document.getElementById('paper-btn')
+const scissorsButton = document.getElementById('scissors-btn')
+const resultText = document.getElementById('result')
+const pcSelectionIcon = document.getElementById('pc-selection-icon')
+const pcSelectionWrapper = document.getElementById('pc-selection-img')
+
 function getComputerChoice() {
     let random = Math.floor(Math.random() * 3)
 
     switch(random) {
         case 0:
             return "Rock"
-            break
         case 1:
             return "Paper"
-            break
         case 2:
             return "Scissors"
-            break
     }
 }
 
@@ -22,65 +26,62 @@ function playRound(playerSelection) {
     
     switch(true) {
         case (playerSelection == 'Rock' && computerSelection == 'Paper'):
-            return `You chose ${playerSelection}, The PC chose ${computerSelection}, ¡You lost!`
+            resultText.innerText = `You chose ${playerSelection}, The PC chose ${computerSelection}, ¡You lost!`
+            pcSelectionIcon.className = 'fa-regular fa-hand'
             break
         case (playerSelection == 'Rock' && computerSelection == 'Scissors'):
-            return `You chose ${playerSelection}, The PC chose ${computerSelection}, ¡You won!`
+            resultText.innerText = `You chose ${playerSelection}, The PC chose ${computerSelection}, ¡You won!`
+            pcSelectionIcon.className = 'fa-regular fa-hand-scissors'
             break
         case (playerSelection == 'Rock' && computerSelection == 'Rock'):
-            return `You chose ${playerSelection}, The PC chose ${computerSelection}, ¡It's a draw!`
+            resultText.innerText = `You chose ${playerSelection}, The PC chose ${computerSelection}, ¡It's a draw!`
+            pcSelectionIcon.className = 'fa-regular fa-hand-back-fist'
             break
         case (playerSelection == 'Paper' && computerSelection == 'Rock'):
-            return `You chose ${playerSelection}, The PC chose ${computerSelection}, ¡You won!`
+            resultText.innerText = `You chose ${playerSelection}, The PC chose ${computerSelection}, ¡You won!`
+            pcSelectionIcon.className = 'fa-regular fa-hand-back-fist'
             break
         case (playerSelection == 'Paper' && computerSelection == 'Scissors'):
-            return `You chose ${playerSelection}, The PC chose ${computerSelection}, ¡You lost!`
+            resultText.innerText = `You chose ${playerSelection}, The PC chose ${computerSelection}, ¡You lost!`
+            pcSelectionIcon.className = 'fa-regular fa-hand-scissors'
             break
         case (playerSelection == 'Paper' && computerSelection == 'Paper'):
-            return `You chose ${playerSelection}, The PC chose ${computerSelection}, It's a draw`
+            resultText.innerText = `You chose ${playerSelection}, The PC chose ${computerSelection}, It's a draw`
+            pcSelectionIcon.className = 'fa-regular fa-hand'
             break
         case (playerSelection == 'Scissors' && computerSelection == 'Paper'):
-            return `You chose ${playerSelection}, The PC chose ${computerSelection}, ¡You won!`
+            resultText.innerText = `You chose ${playerSelection}, The PC chose ${computerSelection}, ¡You won!`
+            pcSelectionIcon.className = 'fa-regular fa-hand'
             break
         case (playerSelection == 'Scissors' && computerSelection == 'Rock'):
-            return `You chose ${playerSelection}, The PC chose ${computerSelection}, ¡You lost!`
+            resultText.innerText = `You chose ${playerSelection}, The PC chose ${computerSelection}, ¡You lost!`
+            pcSelectionIcon.className = 'fa-regular fa-hand-back-fist'
             break
         case (playerSelection == 'Scissors' && computerSelection == 'Scissors'):
-            return `You chose ${playerSelection}, The PC chose ${computerSelection}, It's a draw`
+            resultText.innerText = `You chose ${playerSelection}, The PC chose ${computerSelection}, It's a draw`
+            pcSelectionIcon.className = 'fa-regular fa-hand-scissors'
             break
     }
     
 }
 
-function game() {
+rockButton.addEventListener('click', () => {
+    rockButton.className = 'play-btn-clicked'
+    paperButton.className = 'play-btn'
+    scissorsButton.className = 'play-btn'
+    playRound('Rock')
+})
 
-    let winCount = 0
-    let lossCount = 0
+paperButton.addEventListener('click', () => {
+    rockButton.className = 'play-btn'
+    paperButton.className = 'play-btn-clicked'
+    scissorsButton.className = 'play-btn'
+    playRound('Paper')
+})
 
-    for (let i = 0; i < 5; i++) {
-
-        playerSelection = window.prompt('Choose Rock, Paper or Scissors')
-
-        let result = playRound(playerSelection)
-
-        console.log(result)
-
-        if (result.includes('lost')) {
-            lossCount++
-        } else if (result.includes('won')) {
-            winCount++
-        }
-
-    }
-
-    console.log(`You: ${winCount}, The PC: ${lossCount}`)
-
-    if (winCount < lossCount) {
-        return '¡You lost!'
-    } else if (winCount > lossCount) {
-        return 'You won'
-    } else {
-        return "It's a draw"
-    }
-    
-}
+scissorsButton.addEventListener('click', () => {
+    scissorsButton.className = 'play-btn-clicked'
+    rockButton.className = 'play-btn'
+    paperButton.className = 'play-btn'
+    playRound('Scissors')
+})
